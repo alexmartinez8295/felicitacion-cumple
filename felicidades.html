@@ -42,23 +42,29 @@
     }
 
     .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.5);
-    }
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow-y: auto; /* 🔥 permite scroll en móviles */
+    -webkit-overflow-scrolling: touch; /* 🔥 scroll suave en iPhone */
+  }
 
     .modal-content {
     background-color: white;
-    margin: 10vh auto;
+    margin: 5vh auto;
     padding: 20px;
     border-radius: 10px;
     width: 90%;
-    max-width: 400px;
+    max-width: 500px;
     text-align: center;
+    max-height: 90vh;           /* 🔥 evita que se salga de pantalla */
+    overflow-y: auto;           /* 🔥 permite hacer scroll dentro del modal */
+    box-sizing: border-box;
   }
+
 
 
     .close {
