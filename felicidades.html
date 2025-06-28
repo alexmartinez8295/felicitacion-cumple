@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>¡Feliz Cumpleaños Mamá y Papá!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #fdae6d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: 2rem;
+    }
+
+    button {
+      padding: 12px 20px;
+      margin-top: 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #2277e6;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #0062d3;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+    background-color: white;
+    margin: 10vh auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+
+    .close {
+      margin-top: 15px;
+      background-color: #2ecc71;
+    }
+
+    .close:hover {
+      background-color: #27ae60;
+    }
+
+    .carousel {
+      position: relative;
+      max-width: 100%;
+      margin-top: 10px;
+    }
+
+    .carousel img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .carousel-controls {
+      margin-top: 10px;
+    }
+
+    .carousel-controls button {
+      background-color: #3498db;
+      margin: 0 10px;
+    }
+
+    .carousel-controls button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🎉 ¡Feliz Cumpleaños Mamá y Papá! 🎉</h1>
+  <p style="color:#fff">Tenemos algo que queremos decirles...</p>
+  <button onclick="showModal(0)">Ver mensajes</button>
+</div>
+
+<div id="modals-container"></div>
+
+<script>
+  const messages = [
+    "Sabemos que no somos las personas más expresivas...",
+    "Pero hoy queremos aprovechar este momento especial.",
+    "Gracias por todo lo que han hecho por nosotros, por cada sacrificio, por cada consejo.",
+    "Nos sentimos muy afortunados de ser parte de esta familia.",
+    "Ahora y siempre debemos apoyarnos, si las situaciones no son fáciles, ayudémonos. Y si no...",
+    "Disfrutemos, que no serémos eternos.",
+    "Creémos es no tarde para cambiar ciertos aspectos.",
+    "Y aunque a veces no lo digamos (y hay que trabajar en eso)",
+    "🤗 Los amamos muchísimo 🤗",
+    "GALERIA", // Se reemplazará por el carrusel
+    "❤️ ¡Feliz cumpleaños a los dos! ❤️"
+  ];
+
+  const photos = ["https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/photo_2025-06-27_16-12-16.jpg?raw=true",
+                  "https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/photo_2025-06-27_17-10-06.jpg?raw=true",
+                  "https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/photo_2025-06-27_16-59-09.jpg?raw=true",
+                  "https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/photo_2025-06-27_16-57-22.jpg?raw=true",
+                  "https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/photo_2025-06-27_16-38-19.jpg?raw=true",
+                  "https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/photo_2025-06-27_16-38-16.jpg?raw=true",
+                  "https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/photo_2025-06-27_16-57-20.jpg?raw=true",
+                  "https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/photo_2025-06-27_16-57-23.jpg?raw=true",
+                  "https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/20240708_085036.jpg?raw=true",
+                  "https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/IMG-20230506-WA0074.jpg?raw=true",
+                  "https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/photo_2025-06-27_16-57-27.jpg?raw=true",
+                  "https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/IMG_20220627_205653.jpg?raw=true",
+                  "https://github.com/alexmartinez8295/felicitacion-cumple/blob/main/photo_2025-06-27_16-38-13.jpg?raw=true"];
+  let currentPhotoIndex = 0;
+
+  function createCarousel() {
+    return `
+      <div class="carousel">
+        <img id="carouselImage" src="${photos[0]}" alt="Foto">
+        <div class="carousel-controls">
+          <button onclick="prevPhoto()">⏮️ Anterior</button>
+          <button onclick="nextPhoto()">Siguiente ⏭️</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function prevPhoto() {
+    currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+    document.getElementById("carouselImage").src = photos[currentPhotoIndex];
+  }
+
+  function nextPhoto() {
+    currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+    document.getElementById("carouselImage").src = photos[currentPhotoIndex];
+  }
+
+  function showModal(index) {
+    if (index >= messages.length) return;
+
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+
+    const content = messages[index] === "GALERIA"
+      ? createCarousel()
+      : `<p>${messages[index]}</p>`;
+
+    modal.innerHTML = `
+      <div class="modal-content">
+        ${content}
+        <button class="close" onclick="closeModal(this, ${index})">
+          ${index === messages.length - 1 ? 'Cerrar' : 'Siguiente'}
+        </button>
+      </div>
+    `;
+    document.getElementById('modals-container').appendChild(modal);
+    modal.style.display = 'block';
+  }
+
+  function closeModal(button, currentIndex) {
+    const modal = button.closest('.modal');
+    modal.style.display = 'none';
+    modal.remove();
+    showModal(currentIndex + 1);
+  }
+</script>
+
+</body>
+</html>
